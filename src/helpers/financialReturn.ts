@@ -12,12 +12,10 @@ interface CalculatedData {
 }
 
 export const financialReturn = (energyData: EnergyData[]): CalculatedData => {
-  let totalPotency = 0;
   const energyValor = 0.95;
-
-  for (let item of energyData) {
-    totalPotency += item.potencia_kW;
-  }
+  const totalPotency = energyData
+    .map((energyDataItem) => energyDataItem.potencia_kW)
+    .reduce((sum, val) => sum + val, 0);
 
   const roundPotency = Number(totalPotency.toFixed(2));
 
